@@ -11,6 +11,7 @@
     <context:component-scan base-package="com.library.dao"/>
     <context:component-scan base-package="com.library.service"/>
     <context:property-placeholder location="classpath*:db.properties"/>
+
     <!--  定义一个使用DBCP实现的数据源 -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="${jdbc.driver}"/>
