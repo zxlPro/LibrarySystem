@@ -1,8 +1,8 @@
 package com.library.controller;
 
-import com.library.bean.Lend;
 import com.library.bean.ReaderCard;
 import com.library.pojo.BookInfo;
+import com.library.pojo.LendList;
 import com.library.service.BookService;
 import com.library.service.LendService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vo.BookInfoVo;
+import vo.LendListVo;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
@@ -141,9 +142,11 @@ public class BookController {
     public ModelAndView readerBooks(HttpServletRequest request) {
         List<BookInfo> books = bookService.queryBook(null);
         ReaderCard readerCard = (ReaderCard) request.getSession().getAttribute("readercard");
-        List<Lend> myAllLendList = lendService.myLendList(readerCard.getReaderId());
+        LendListVo vo = new LendListVo();
+        vo.setReaderId(readerCard.getReaderId());
+        List<LendList> myAllLendList = lendService.lendList(vo);
         List<Long> myLendList = new ArrayList<>();
-        for (Lend lend : myAllLendList) {
+        for (LendList lend : myAllLendList) {
             // 是否已归还
             if (lend.getBackDate() == null) {
                 myLendList.add(lend.getBookId());

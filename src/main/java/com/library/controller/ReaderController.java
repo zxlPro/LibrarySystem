@@ -1,7 +1,7 @@
 package com.library.controller;
 
-import com.library.bean.ReaderCard;
-import com.library.bean.ReaderInfo;
+import com.library.pojo.ReaderCard;
+import com.library.pojo.ReaderInfo;
 import com.library.service.LoginService;
 import com.library.service.ReaderCardService;
 import com.library.service.ReaderInfoService;
@@ -16,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class ReaderController {
@@ -48,7 +49,7 @@ public class ReaderController {
 
     @RequestMapping("allreaders.html")
     public ModelAndView allBooks() {
-        ArrayList<ReaderInfo> readers = readerInfoService.readerInfos();
+        List<ReaderInfo> readers = readerInfoService.readerInfos();
         ModelAndView modelAndView = new ModelAndView("admin_readers");
         modelAndView.addObject("readers", readers);
         return modelAndView;
@@ -105,7 +106,7 @@ public class ReaderController {
         ReaderInfo readerInfo = getReaderInfo(0, name, sex, birth, address, phone);
         long readerId = readerInfoService.addReaderInfo(readerInfo);
         readerInfo.setReaderId(readerId);
-        if (readerId > 0 && readerCardService.addReaderCard(readerInfo, password)) {
+        if (readerId > 0 && readerCardService.addReaderCard(readerInfo,password)) {
             redirectAttributes.addFlashAttribute("succ", "添加读者信息成功！");
         } else {
             redirectAttributes.addFlashAttribute("succ", "添加读者信息失败！");
