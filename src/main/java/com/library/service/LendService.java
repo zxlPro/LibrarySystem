@@ -4,10 +4,10 @@ import com.library.mapper.LendListMapper;
 import com.library.mapper.ext.BookInfoExtMapper;
 import com.library.pojo.LendList;
 import com.library.pojo.LendListExample;
+import com.library.vo.LendListVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vo.LendListVo;
 
 import java.util.Date;
 import java.util.List;

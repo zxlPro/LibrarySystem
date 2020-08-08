@@ -3,10 +3,10 @@ package com.library.service;
 import com.library.mapper.BookInfoMapper;
 import com.library.pojo.BookInfo;
 import com.library.pojo.BookInfoExample;
+import com.library.vo.BookInfoVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vo.BookInfoVo;
 
 import java.util.List;
 

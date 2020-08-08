@@ -1,7 +1,6 @@
 package com.library.service;
 
 import com.library.mapper.ReaderCardMapper;
-import com.library.mapper.ReaderInfoMapper;
 import com.library.pojo.ReaderCard;
 import com.library.pojo.ReaderInfo;
 import org.springframework.beans.factory.annotation.Autowired;
