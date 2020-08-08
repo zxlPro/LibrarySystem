@@ -5,15 +5,6 @@ public class ClassInfo {
 
     private String className;
 
-    public ClassInfo(Integer classId, String className) {
-        this.classId = classId;
-        this.className = className;
-    }
-
-    public ClassInfo() {
-        super();
-    }
-
     public Integer getClassId() {
         return classId;
     }

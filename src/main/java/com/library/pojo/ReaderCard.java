@@ -7,16 +7,6 @@ public class ReaderCard {
 
     private String password;
 
-    public ReaderCard(Long readerId, String username, String password) {
-        this.readerId = readerId;
-        this.username = username;
-        this.password = password;
-    }
-
-    public ReaderCard() {
-        super();
-    }
-
     public Long getReaderId() {
         return readerId;
     }

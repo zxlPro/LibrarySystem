@@ -53,7 +53,7 @@ background-attachment: fixed;">
                 </tr>
                 <tr>
                     <th>出版日期</th>
-                    <td>${detail.pubdate}</td>
+                    <td>${detail.pubDate}</td>
                 </tr>
                 <tr>
                     <th>分类号</th>

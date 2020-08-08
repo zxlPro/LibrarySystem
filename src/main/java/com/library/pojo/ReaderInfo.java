@@ -15,19 +15,6 @@ public class ReaderInfo {
 
     private String phone;
 
-    public ReaderInfo(Long readerId, String name, String sex, Date birth, String address, String phone) {
-        this.readerId = readerId;
-        this.name = name;
-        this.sex = sex;
-        this.birth = birth;
-        this.address = address;
-        this.phone = phone;
-    }
-
-    public ReaderInfo() {
-        super();
-    }
-
     public Long getReaderId() {
         return readerId;
     }

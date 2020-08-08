@@ -7,16 +7,6 @@ public class Admin {
 
     private String username;
 
-    public Admin(Long adminId, String password, String username) {
-        this.adminId = adminId;
-        this.password = password;
-        this.username = username;
-    }
-
-    public Admin() {
-        super();
-    }
-
     public Long getAdminId() {
         return adminId;
     }

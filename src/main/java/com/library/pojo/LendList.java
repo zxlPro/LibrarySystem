@@ -13,18 +13,6 @@ public class LendList {
 
     private Date backDate;
 
-    public LendList(Long serNum, Long bookId, Long readerId, Date lendDate, Date backDate) {
-        this.serNum = serNum;
-        this.bookId = bookId;
-        this.readerId = readerId;
-        this.lendDate = lendDate;
-        this.backDate = backDate;
-    }
-
-    public LendList() {
-        super();
-    }
-
     public Long getSerNum() {
         return serNum;
     }

@@ -26,24 +26,6 @@ public class BookInfo {
 
     private String introduction;
 
-    public BookInfo(Long bookId, String name, String author, String publish, String isbn, String language, BigDecimal price, Date pubDate, Integer classId, Integer number, String introduction) {
-        this.bookId = bookId;
-        this.name = name;
-        this.author = author;
-        this.publish = publish;
-        this.isbn = isbn;
-        this.language = language;
-        this.price = price;
-        this.pubDate = pubDate;
-        this.classId = classId;
-        this.number = number;
-        this.introduction = introduction;
-    }
-
-    public BookInfo() {
-        super();
-    }
-
     public Long getBookId() {
         return bookId;
     }

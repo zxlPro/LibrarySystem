@@ -55,7 +55,7 @@ background-attachment: fixed;">
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon">出版日期</span>
-                    <input type="date" class="form-control" name="pubstr" id="pubstr" value="${detail.pubdate}">
+                    <input type="date" class="form-control" name="pubstr" id="pubstr" value="${detail.pubDate}">
                 </div>
                 <div class="input-group">
                     <span  class="input-group-addon">分类号</span>
