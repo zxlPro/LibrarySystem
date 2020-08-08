@@ -12,21 +12,5 @@
     <context:component-scan base-package="com.library.service"/>
     <context:property-placeholder location="classpath*:db.properties"/>
 
-    <!--  定义一个使用DBCP实现的数据源 -->
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-        <property name="driverClassName" value="${jdbc.driver}"/>
-        <!-- url -->
-        <property name="url" value="${jdbc.url}"/>
-        <!-- 用户名 -->
-        <property name="username" value="${jdbc.username}"/>
-        <!-- 密码 -->
-        <property name="password" value="${jdbc.password}"/>
-    </bean>
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="mapperLocations" value="classpath:MyBatis/*"/>
-    </bean>
-    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-        <constructor-arg index="0" ref="sqlSessionFactory"/>
-    </bean>
+    <import resource="classpath*:spring/mybatis-config.xml"></import>
 </beans>

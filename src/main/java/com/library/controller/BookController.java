@@ -1,8 +1,8 @@
 package com.library.controller;
 
-import com.library.bean.Book;
 import com.library.bean.Lend;
 import com.library.bean.ReaderCard;
+import com.library.pojo.BookInfo;
 import com.library.service.BookService;
 import com.library.service.LendService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import vo.BookInfoVo;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class BookController {
@@ -37,8 +39,10 @@ public class BookController {
 
     @RequestMapping("/querybook.html")
     public ModelAndView queryBookDo(String searchWord) {
-        if (bookService.matchBook(searchWord)) {
-            ArrayList<Book> books = bookService.queryBook(searchWord);
+        BookInfoVo vo = new BookInfoVo();
+        vo.setName(searchWord);
+        if (bookService.matchBook(vo)) {
+            List<BookInfo> books = bookService.queryBook(vo);
             ModelAndView modelAndView = new ModelAndView("admin_books");
             modelAndView.addObject("books", books);
             return modelAndView;
@@ -49,8 +53,10 @@ public class BookController {
 
     @RequestMapping("/reader_querybook_do.html")
     public ModelAndView readerQueryBookDo(String searchWord) {
-        if (bookService.matchBook(searchWord)) {
-            ArrayList<Book> books = bookService.queryBook(searchWord);
+        BookInfoVo vo = new BookInfoVo();
+        vo.setName(searchWord);
+        if (bookService.matchBook(vo)) {
+            List<BookInfo> books = bookService.queryBook(vo);
             ModelAndView modelAndView = new ModelAndView("reader_books");
             modelAndView.addObject("books", books);
             return modelAndView;
@@ -61,7 +67,7 @@ public class BookController {
 
     @RequestMapping("/admin_books.html")
     public ModelAndView adminBooks() {
-        ArrayList<Book> books = bookService.getAllBooks();
+        List<BookInfo> books = bookService.queryBook(null);
         ModelAndView modelAndView = new ModelAndView("admin_books");
         modelAndView.addObject("books", books);
         return modelAndView;
@@ -73,8 +79,8 @@ public class BookController {
     }
 
     @RequestMapping("/book_add_do.html")
-    public String addBookDo(@RequestParam(value = "pubstr") String pubstr, Book book, RedirectAttributes redirectAttributes) {
-        book.setPubdate(getDate(pubstr));
+    public String addBookDo(@RequestParam(value = "pubstr") String pubstr, BookInfo book, RedirectAttributes redirectAttributes) {
+        book.setPubDate(getDate(pubstr));
         if (bookService.addBook(book)) {
             redirectAttributes.addFlashAttribute("succ", "图书添加成功！");
         } else {
@@ -86,15 +92,15 @@ public class BookController {
     @RequestMapping("/updatebook.html")
     public ModelAndView bookEdit(HttpServletRequest request) {
         long bookId = Long.parseLong(request.getParameter("bookId"));
-        Book book = bookService.getBook(bookId);
+        BookInfo book = bookService.getBook(bookId);
         ModelAndView modelAndView = new ModelAndView("admin_book_edit");
         modelAndView.addObject("detail", book);
         return modelAndView;
     }
 
     @RequestMapping("/book_edit_do.html")
-    public String bookEditDo(@RequestParam(value = "pubstr") String pubstr, Book book, RedirectAttributes redirectAttributes) {
-        book.setPubdate(getDate(pubstr));
+    public String bookEditDo(@RequestParam(value = "pubstr") String pubstr, BookInfo book, RedirectAttributes redirectAttributes) {
+        book.setPubDate(getDate(pubstr));
         if (bookService.editBook(book)) {
             redirectAttributes.addFlashAttribute("succ", "图书修改成功！");
         } else {
@@ -106,7 +112,7 @@ public class BookController {
     @RequestMapping("/admin_book_detail.html")
     public ModelAndView adminBookDetail(HttpServletRequest request) {
         long bookId = Long.parseLong(request.getParameter("bookId"));
-        Book book = bookService.getBook(bookId);
+        BookInfo book = bookService.getBook(bookId);
         ModelAndView modelAndView = new ModelAndView("admin_book_detail");
         modelAndView.addObject("detail", book);
         return modelAndView;
@@ -115,7 +121,7 @@ public class BookController {
     @RequestMapping("/reader_book_detail.html")
     public ModelAndView readerBookDetail(HttpServletRequest request) {
         long bookId = Long.parseLong(request.getParameter("bookId"));
-        Book book = bookService.getBook(bookId);
+        BookInfo book = bookService.getBook(bookId);
         ModelAndView modelAndView = new ModelAndView("reader_book_detail");
         modelAndView.addObject("detail", book);
         return modelAndView;
@@ -133,10 +139,10 @@ public class BookController {
 
     @RequestMapping("/reader_books.html")
     public ModelAndView readerBooks(HttpServletRequest request) {
-        ArrayList<Book> books = bookService.getAllBooks();
+        List<BookInfo> books = bookService.queryBook(null);
         ReaderCard readerCard = (ReaderCard) request.getSession().getAttribute("readercard");
-        ArrayList<Lend> myAllLendList = lendService.myLendList(readerCard.getReaderId());
-        ArrayList<Long> myLendList = new ArrayList<>();
+        List<Lend> myAllLendList = lendService.myLendList(readerCard.getReaderId());
+        List<Long> myLendList = new ArrayList<>();
         for (Lend lend : myAllLendList) {
             // 是否已归还
             if (lend.getBackDate() == null) {

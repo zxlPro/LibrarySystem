@@ -1,43 +1,49 @@
 package com.library.service;
 
-import com.library.bean.Book;
-import com.library.dao.BookDao;
+import com.library.mapper.BookInfoMapper;
+import com.library.pojo.BookInfo;
+import com.library.pojo.BookInfoExample;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import vo.BookInfoVo;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class BookService {
+
     @Autowired
-    private BookDao bookDao;
+    private BookInfoMapper bookInfoMapper;
 
-    public ArrayList<Book> queryBook(String searchWord) {
-        return bookDao.queryBook(searchWord);
+    public List<BookInfo> queryBook(BookInfoVo vo) {
+        BookInfoExample example = new BookInfoExample();
+        if(null != vo){
+            if(StringUtils.isNotBlank(vo.getName())){
+                example.createCriteria().andNameLike(vo.getName());
+            }
+        }
+        return bookInfoMapper.selectByExample(example);
     }
 
-    public ArrayList<Book> getAllBooks() {
-        return bookDao.getAllBooks();
+    public boolean matchBook(BookInfoVo vo) {
+        return queryBook(vo).size() > 0;
     }
 
-    public boolean matchBook(String searchWord) {
-        return bookDao.matchBook(searchWord) > 0;
+    public boolean addBook(BookInfo bookInfo) {
+        return bookInfoMapper.insert(bookInfo)> 0;
     }
 
-    public boolean addBook(Book book) {
-        return bookDao.addBook(book) > 0;
+    public BookInfo getBook(Long bookId) {
+        return bookInfoMapper.selectByPrimaryKey(bookId);
     }
 
-    public Book getBook(Long bookId) {
-        return bookDao.getBook(bookId);
-    }
-
-    public boolean editBook(Book book) {
-        return bookDao.editBook(book) > 0;
+    public boolean editBook(BookInfo book) {
+        return bookInfoMapper.updateByPrimaryKey(book) > 0;
     }
 
     public boolean deleteBook(Long bookId) {
-        return bookDao.deleteBook(bookId) > 0;
+        return bookInfoMapper.deleteByPrimaryKey(bookId) > 0;
     }
 
 }

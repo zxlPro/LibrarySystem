@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import vo.LendListVo;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -33,7 +34,7 @@ public class LendController {
     @RequestMapping("/lendlist.html")
     public ModelAndView lendList(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("admin_lend_list");
-        modelAndView.addObject("list", lendService.lendList());
+        modelAndView.addObject("list", lendService.lendList(null));
         return modelAndView;
     }
 
@@ -41,7 +42,9 @@ public class LendController {
     public ModelAndView myLend(HttpServletRequest request) {
         ReaderCard readerCard = (ReaderCard) request.getSession().getAttribute("readercard");
         ModelAndView modelAndView = new ModelAndView("reader_lend_list");
-        modelAndView.addObject("list", lendService.myLendList(readerCard.getReaderId()));
+        LendListVo vo = new LendListVo();
+        vo.setReaderId(readerCard.getReaderId());
+        modelAndView.addObject("list", lendService.lendList(vo));
         return modelAndView;
     }
 
