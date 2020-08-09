@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.library.mapper.ext.BookInfoExtMapper">
+    <!--添加图书数量-->
     <update id="addBookNum" parameterType="long">
          update book_info set number = number + 1 where book_id = #{book_id}
     </update>
 
+    <!--减少图书数量-->
     <update id="delBookNum" parameterType="long">
          update book_info set number = number - 1 where book_id = #{book_id}
     </update>

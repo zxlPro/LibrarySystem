@@ -1,19 +1,9 @@
 package com.library.vo;
 
+import com.library.pojo.LendList;
 import lombok.Data;
 
-import java.util.Date;
-
 @Data
-public class LendListVo {
-    private Long serNum;
-
-    private Long bookId;
-
-    private Long readerId;
-
-    private Date lendDate;
-
-    private Date backDate;
+public class LendListVo extends LendList {
 
 }
