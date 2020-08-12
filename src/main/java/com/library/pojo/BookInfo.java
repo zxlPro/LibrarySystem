@@ -1,5 +1,8 @@
 package com.library.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -18,6 +21,7 @@ public class BookInfo {
 
     private BigDecimal price;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:ss:mm")
     private Date pubDate;
 
     private Integer classId;

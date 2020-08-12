@@ -2,6 +2,7 @@ package com.library.service;
 
 import com.library.mapper.LendListMapper;
 import com.library.mapper.ext.BookInfoExtMapper;
+import com.library.mapper.ext.LendListExtMapper;
 import com.library.pojo.LendList;
 import com.library.pojo.LendListExample;
 import com.library.vo.LendListVo;
@@ -16,6 +17,9 @@ import java.util.List;
 public class LendService {
     @Autowired
     private LendListMapper lendListMapper;
+
+    @Autowired
+    private LendListExtMapper LendListExtMapper;
 
     @Autowired
     private BookInfoExtMapper bookInfoExtMapper;
@@ -36,14 +40,8 @@ public class LendService {
         return lendListMapper.insertSelective(lendList)>0 && bookInfoExtMapper.delBookNum(bookId)>0;
     }
 
-    public List<LendList> lendList(LendListVo vo){
-        LendListExample example = new LendListExample();
-        if(null != vo){
-            if(StringUtils.isNotBlank(vo.getReaderId().toString())){
-                example.createCriteria().andReaderIdEqualTo(vo.getReaderId());
-            }
-        }
-        return lendListMapper.selectByExample(example);
+    public List<LendListVo> lendList(LendListVo vo){
+        return LendListExtMapper.getLendList(vo);
     }
 
     public int deleteLend(long serNum) {

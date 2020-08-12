@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <title>${readercard.name}的主页</title>
+    <title>${readercard.username}的主页</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js" ></script>
@@ -58,7 +58,7 @@ background-attachment: fixed;">
                 </tr>
                 <tr>
                     <th>生日</th>
-                    <td>${readerinfo.birth}</td>
+                    <td><fmt:formatDate value="${readerinfo.birth}" type="date" pattern="yyyy-MM-dd"/></td>
                 </tr>
                 <tr>
                     <th>地址</th>

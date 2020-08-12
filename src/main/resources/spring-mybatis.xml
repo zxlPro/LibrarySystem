@@ -9,7 +9,7 @@
     <!-- 配置别名 -->
     <typeAliases>
         <!-- 批量扫描别名 -->
-        <package name="com.library.pojo"/>
+        <package name="com.library"/>
     </typeAliases>
 
     <!-- 配置mapper

@@ -54,7 +54,7 @@ background-attachment: fixed;">
                 </tr>
                 <tr>
                     <th>出版日期</th>
-                    <td>${detail.pubDate}</td>
+                    <td><fmt:formatDate value="${detail.pubDate}" type="date" pattern="yyyy-MM-dd"/></td>
                 </tr>
                 <tr>
                     <th>分类号</th>

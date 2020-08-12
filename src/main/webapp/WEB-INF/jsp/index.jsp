@@ -37,7 +37,7 @@ background-attachment: fixed;">
             window.location.href="login.html";
 </script>
 </c:if>
-<h2 style="text-align: center; color: white; font-family: '华文行楷'; font-size: 500%">图 书 馆</h2>
+<h2 style="text-align: center; color: white; font-family: '华文行楷'; font-size: 500%">黑龙江农业经济职业学院图书馆</h2>
 
 <div class="panel panel-default" id="login">
     <div class="panel-heading" style="background-color: #fff">

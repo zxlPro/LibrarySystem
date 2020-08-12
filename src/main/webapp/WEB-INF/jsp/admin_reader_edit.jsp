@@ -33,7 +33,7 @@ background-attachment: fixed;">
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon">生日</span>
-                    <input type="text" class="form-control" name="birth" id="birth"  value="${readerInfo.birth}" >
+                    <input type="text" class="form-control" name="birth" id="birth"  value="<fmt:formatDate value="${readerInfo.birth}" type="date" pattern="yyyy-MM-dd"/>" >
                 </div>
                 <div class="input-group">
                     <span  class="input-group-addon">地址</span>

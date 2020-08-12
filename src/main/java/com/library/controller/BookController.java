@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-public class BookController {
+public class BookController extends BaseController{
     @Autowired
     private BookService bookService;
     @Autowired
@@ -144,7 +144,7 @@ public class BookController {
         ReaderCard readerCard = (ReaderCard) request.getSession().getAttribute("readercard");
         LendListVo vo = new LendListVo();
         vo.setReaderId(readerCard.getReaderId());
-        List<LendList> myAllLendList = lendService.lendList(vo);
+        List<LendListVo> myAllLendList = lendService.lendList(vo);
         List<Long> myLendList = new ArrayList<>();
         for (LendList lend : myAllLendList) {
             // 是否已归还

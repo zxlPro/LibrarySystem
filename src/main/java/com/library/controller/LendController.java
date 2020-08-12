@@ -32,9 +32,9 @@ public class LendController {
     }
 
     @RequestMapping("/lendlist.html")
-    public ModelAndView lendList(HttpServletRequest request) {
+    public ModelAndView lendList(HttpServletRequest request,LendListVo vo) {
         ModelAndView modelAndView = new ModelAndView("admin_lend_list");
-        modelAndView.addObject("list", lendService.lendList(null));
+        modelAndView.addObject("list", lendService.lendList(vo));
         return modelAndView;
     }
 

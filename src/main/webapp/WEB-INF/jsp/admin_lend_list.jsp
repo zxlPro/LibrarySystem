@@ -17,8 +17,23 @@
 background-size:100% 100%;
 background-attachment: fixed;">
 <div id="header"></div>
+<div style="padding: 70px 450px 10px">
+    <form  method="post" action="lendlist.html" class="form-inline"  id="searchform">
+        <div class="form-group">
+            <label for="bookName">图书名</label>
+            <input type="text" class="form-control" id="bookName" name="bookName" placeholder="输入图书名">
+        </div>
+        <div class="form-group">
+            <label for="readerName">读者名</label>
+            <input type="email" class="form-control" id="readerName" name="readerName" placeholder="输入读者名">
+        </div>
+        <input type="submit" value="搜索" class="btn btn-default">
+    </form>
+    <script>
+    </script>
+</div>
 
-<div style="position: relative;padding-top: 100px">
+<div style="padding-top: 10px">
     <c:if test="${!empty succ}">
         <div class="alert alert-success alert-dismissable">
             <button type="button" class="close" data-dismiss="alert"
@@ -50,7 +65,9 @@ background-attachment: fixed;">
             <tr>
                 <th>流水号</th>
                 <th>图书号</th>
+                <th>图书名称</th>
                 <th>读者证号</th>
+                <th>读者名称</th>
                 <th>借出日期</th>
                 <th>归还日期</th>
                 <th>删除</th>
@@ -61,9 +78,11 @@ background-attachment: fixed;">
                 <tr>
                     <td><c:out value="${alog.serNum}"></c:out></td>
                     <td><c:out value="${alog.bookId}"></c:out></td>
+                    <td><c:out value="${alog.bookName}"></c:out></td>
                     <td><c:out value="${alog.readerId}"></c:out></td>
-                    <td><c:out value="${alog.lendDate}"></c:out></td>
-                    <td><c:out value="${alog.backDate}"></c:out></td>
+                    <td><c:out value="${alog.readerName}"></c:out></td>
+                    <td><fmt:formatDate value="${alog.lendDate}" type="date" pattern="yyyy-MM-dd"/></td>
+                    <td><fmt:formatDate value="${alog.backDate}" type="date" pattern="yyyy-MM-dd"/></td>
                     <td>
                         <a href="deletelend.html?serNum=<c:out value='${alog.serNum}'></c:out>">
                             <c:if test="${!empty alog.backDate}">
