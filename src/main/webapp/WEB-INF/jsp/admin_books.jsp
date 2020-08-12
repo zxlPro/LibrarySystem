@@ -5,8 +5,10 @@
 <head>
     <title>全部图书信息</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <script src="js/jquery-3.2.1.js"></script>
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/bootstrap-paginator.min.js"></script>
     <script src="js/bootstrap.min.js" ></script>
+    <script src="js/admin/admin_books.js" ></script>
     <script>
         $(function () {
             $('#header').load('admin_header.html');
@@ -20,23 +22,14 @@ background-attachment: fixed;">
 <div id="header"></div>
 
 <div style="padding: 70px 550px 10px">
-    <form   method="post" action="querybook.html" class="form-inline"  id="searchform">
+    <form action="" class="form-inline"  id="searchform">
         <div class="input-group">
-           <input type="text" placeholder="输入图书名" class="form-control" id="search" name="searchWord" class="form-control">
+           <input type="text" placeholder="输入图书名" class="form-control" id="bookName" name="bookName" class="form-control">
             <span class="input-group-btn">
-                            <input type="submit" value="搜索" class="btn btn-default">
+                    <input type="button" value="搜索" onclick="getBookList(1)" class="btn btn-default">
             </span>
         </div>
     </form>
-    <script>
-        $("#searchform").submit(function () {
-            var val=$("#search").val();
-            if(val==''){
-                alert("请输入关键字");
-                return false;
-            }
-        })
-    </script>
 </div>
 <div style="position: relative;top: 10%">
 <c:if test="${!empty succ}">
@@ -79,25 +72,12 @@ background-attachment: fixed;">
                 <th>删除</th>
             </tr>
             </thead>
-            <tbody>
-            <c:forEach items="${books}" var="book">
-            <tr>
-                <td><c:out value="${book.name}"></c:out></td>
-                <td><c:out value="${book.author}"></c:out></td>
-                <td><c:out value="${book.publish}"></c:out></td>
-                <td><c:out value="${book.isbn}"></c:out></td>
-                <td><c:out value="${book.price}"></c:out></td>
-                <td><c:out value="${book.number}"></c:out></td>
-                <td><a href="admin_book_detail.html?bookId=<c:out value="${book.bookId}"></c:out>">
-                    <button type="button" class="btn btn-success btn-xs">详情</button>
-                </a></td>
-                <td><a href="updatebook.html?bookId=<c:out value="${book.bookId}"></c:out>"><button type="button" class="btn btn-info btn-xs">编辑</button></a></td>
-                <td><a href="deletebook.html?bookId=<c:out value="${book.bookId}"></c:out>"><button type="button" class="btn btn-danger btn-xs">删除</button></a></td>
-            </tr>
-            </c:forEach>
+            <tbody id="list_tbody">
             </tbody>
         </table>
     </div>
+    <div style="text-align:center;"><ul id="pageLimit" ></ul></div>
+
 </div>
 </body>
 </html>

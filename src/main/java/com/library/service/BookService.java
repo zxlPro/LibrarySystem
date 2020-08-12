@@ -1,5 +1,7 @@
 package com.library.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.library.mapper.BookInfoMapper;
 import com.library.pojo.BookInfo;
 import com.library.pojo.BookInfoExample;
@@ -16,18 +18,21 @@ public class BookService {
     @Autowired
     private BookInfoMapper bookInfoMapper;
 
-    public List<BookInfo> queryBook(BookInfoVo vo) {
+    public PageInfo<BookInfo> queryBook(BookInfoVo vo) {
         BookInfoExample example = new BookInfoExample();
         if(null != vo){
             if(StringUtils.isNotBlank(vo.getName())){
-                example.createCriteria().andNameLike(vo.getName());
+                example.createCriteria().andNameLike("%"+vo.getName()+"%");
             }
         }
-        return bookInfoMapper.selectByExample(example);
+        PageHelper.startPage(vo.getPageNo(),vo.getPageSize());
+        List<BookInfo> bookInfoList = bookInfoMapper.selectByExample(example);
+        PageInfo<BookInfo> bookPage = new PageInfo<>(bookInfoList);
+        return bookPage;
     }
 
     public boolean matchBook(BookInfoVo vo) {
-        return queryBook(vo).size() > 0;
+        return queryBook(vo).getTotal() > 0;
     }
 
     public boolean addBook(BookInfo bookInfo) {
