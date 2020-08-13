@@ -1,13 +1,17 @@
 package com.library.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.library.pojo.ReaderCard;
 import com.library.pojo.ReaderInfo;
 import com.library.service.LoginService;
 import com.library.service.ReaderCardService;
 import com.library.service.ReaderInfoService;
+import com.library.vo.ReaderInfoVo;
+import com.library.vo.RespResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -52,6 +56,19 @@ public class ReaderController {
         ModelAndView modelAndView = new ModelAndView("admin_readers");
         modelAndView.addObject("readers", readers);
         return modelAndView;
+    }
+
+    /**
+     * 查询读者列表
+     * @return
+     */
+    @RequestMapping("/getReaderList")
+    @ResponseBody
+    public RespResult getReaderList(ReaderInfoVo vo){
+        RespResult result = new RespResult();
+        PageInfo<ReaderInfo> pageInfo = readerInfoService.getReaderList(vo);
+        result.success(pageInfo);
+        return result;
     }
 
     @RequestMapping("reader_delete.html")

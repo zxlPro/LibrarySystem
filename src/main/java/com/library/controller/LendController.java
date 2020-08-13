@@ -1,12 +1,17 @@
 package com.library.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.library.pojo.ReaderCard;
+import com.library.pojo.ReaderInfo;
 import com.library.service.BookService;
 import com.library.service.LendService;
 import com.library.vo.LendListVo;
+import com.library.vo.ReaderInfoVo;
+import com.library.vo.RespResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -36,6 +41,19 @@ public class LendController {
         ModelAndView modelAndView = new ModelAndView("admin_lend_list");
         modelAndView.addObject("list", lendService.lendList(vo));
         return modelAndView;
+    }
+
+    /**
+     * 查询读者列表
+     * @return
+     */
+    @RequestMapping("/getLendList")
+    @ResponseBody
+    public RespResult getLendList(LendListVo vo){
+        RespResult result = new RespResult();
+        PageInfo<LendListVo> pageInfo = lendService.getLendList(vo);
+        result.success(pageInfo);
+        return result;
     }
 
     @RequestMapping("/mylend.html")

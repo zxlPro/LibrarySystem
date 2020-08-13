@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-paginator.min.js"></script>
+    <script src="js/lend/lendList.js"></script>
     <script>
         $(function () {
             $('#header').load('admin_header.html');
@@ -18,7 +21,7 @@ background-size:100% 100%;
 background-attachment: fixed;">
 <div id="header"></div>
 <div style="padding: 70px 450px 10px">
-    <form  method="post" action="lendlist.html" class="form-inline"  id="searchform">
+    <form class="form-inline"  id="searchform">
         <div class="form-group">
             <label for="bookName">图书名</label>
             <input type="text" class="form-control" id="bookName" name="bookName" placeholder="输入图书名">
@@ -27,7 +30,7 @@ background-attachment: fixed;">
             <label for="readerName">读者名</label>
             <input type="email" class="form-control" id="readerName" name="readerName" placeholder="输入读者名">
         </div>
-        <input type="submit" value="搜索" class="btn btn-default">
+        <input type="button" value="搜索" onclick="getList(1)" class="btn btn-default">
     </form>
     <script>
     </script>
@@ -70,34 +73,13 @@ background-attachment: fixed;">
                 <th>读者名称</th>
                 <th>借出日期</th>
                 <th>归还日期</th>
-                <th>删除</th>
             </tr>
             </thead>
-            <tbody>
-            <c:forEach items="${list}" var="alog">
-                <tr>
-                    <td><c:out value="${alog.serNum}"></c:out></td>
-                    <td><c:out value="${alog.bookId}"></c:out></td>
-                    <td><c:out value="${alog.bookName}"></c:out></td>
-                    <td><c:out value="${alog.readerId}"></c:out></td>
-                    <td><c:out value="${alog.readerName}"></c:out></td>
-                    <td><fmt:formatDate value="${alog.lendDate}" type="date" pattern="yyyy-MM-dd"/></td>
-                    <td><fmt:formatDate value="${alog.backDate}" type="date" pattern="yyyy-MM-dd"/></td>
-                    <td>
-                        <a href="deletelend.html?serNum=<c:out value='${alog.serNum}'></c:out>">
-                            <c:if test="${!empty alog.backDate}">
-                                <button type="button" class="btn btn-danger btn-xs">删除</button>
-                            </c:if>
-                            <c:if test="${empty alog.backDate}">
-                                <button type="button" class="btn btn-default btn-xs" disabled="disabled">删除</button>
-                            </c:if>
-                        </a>
-                    </td>
-                </tr>
-            </c:forEach>
+            <tbody id="list_tbody">
             </tbody>
         </table>
     </div>
+    <div style="text-align:center;"><ul id="pageLimit" ></ul></div>
 </div>
 
 </body>

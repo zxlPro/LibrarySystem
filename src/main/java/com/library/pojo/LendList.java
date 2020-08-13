@@ -1,5 +1,7 @@
 package com.library.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class LendList {
@@ -9,8 +11,10 @@ public class LendList {
 
     private Long readerId;
 
+    @JsonFormat(pattern="yyyy-MM-dd", timezone = "GMT+8")
     private Date lendDate;
 
+    @JsonFormat(pattern="yyyy-MM-dd", timezone = "GMT+8")
     private Date backDate;
 
     public Long getSerNum() {

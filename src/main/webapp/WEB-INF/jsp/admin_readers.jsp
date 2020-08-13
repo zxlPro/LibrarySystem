@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js" ></script>
+    <script src="js/bootstrap-paginator.min.js"></script>
+    <script src="js/reader/readerall.js" ></script>
     <script>
         $(function () {
             $('#header').load('admin_header.html');
@@ -63,22 +65,11 @@ background-attachment: fixed;">
                 <th>删除</th>
             </tr>
             </thead>
-            <tbody>
-            <c:forEach items="${readers}" var="reader">
-                <tr>
-                    <td><c:out value="${reader.readerId}"></c:out></td>
-                    <td><c:out value="${reader.name}"></c:out></td>
-                    <td><c:out value="${reader.sex}"></c:out></td>
-                    <td><fmt:formatDate value="${reader.birth}" type="date" pattern="yyyy-MM-dd"/></td>
-                    <td><c:out value="${reader.address}"></c:out></td>
-                    <td><c:out value="${reader.phone}"></c:out></td>
-                    <td><a href="reader_edit.html?readerId=<c:out value="${reader.readerId}"></c:out>"><button type="button" class="btn btn-info btn-xs">编辑</button></a></td>
-                    <td><a href="reader_delete.html?readerId=<c:out value="${reader.readerId}"></c:out>"><button type="button" class="btn btn-danger btn-xs">删除</button></a></td>
-                </tr>
-            </c:forEach>
+            <tbody id="list_tbody">
             </tbody>
         </table>
     </div>
+    <div style="text-align:center;"><ul id="pageLimit" ></ul></div>
 </div>
 </body>
 </html>

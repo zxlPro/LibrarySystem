@@ -16,4 +16,10 @@ public class LendListVo extends LendList {
      */
     private String readerName;
 
+
+    private Integer pageNo = 1;
+
+    private Integer pageSize = 10;
+
+
 }

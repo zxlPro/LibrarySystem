@@ -1,5 +1,7 @@
 package com.library.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.library.mapper.LendListMapper;
 import com.library.mapper.ext.BookInfoExtMapper;
 import com.library.mapper.ext.LendListExtMapper;
@@ -42,6 +44,18 @@ public class LendService {
 
     public List<LendListVo> lendList(LendListVo vo){
         return LendListExtMapper.getLendList(vo);
+    }
+
+    /**
+     * 查询借阅记录
+     * @param vo
+     * @return
+     */
+    public PageInfo<LendListVo> getLendList(LendListVo vo){
+        PageHelper.startPage(vo.getPageNo(),vo.getPageSize());
+        List<LendListVo> list = LendListExtMapper.getLendList(vo);
+        PageInfo<LendListVo> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 
     public int deleteLend(long serNum) {
