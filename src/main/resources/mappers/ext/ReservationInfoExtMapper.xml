@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.library.mapper.ext.ReservationInfoExtMapper">
+    <resultMap id="BaseResultMap" type="com.library.vo.ReservationInfoVo" >
+        <id column="id" property="id" />
+        <result column="book_id" property="bookId"/>
+        <result column="reader_id" property="readerId"/>
+        <result column="reser_date" property="reserDate"/>
+        <result column="reser_status" property="reserStatus"/>
+        <result column="book_name" property="bookName"/>
+        <result column="reader_name" property="readerName"/>
+    </resultMap>
+
+    <!--查询预约信息-->
+   <select id="getReservationInfoList" resultMap="BaseResultMap" parameterType="com.library.vo.ReservationInfoVo">
+       select ll.*,b.name book_name,r.name  from reservation_info ll
+       left join book_info b on ll.book_id = b.book_id
+       left join reader_info r on ll.reader_id = r.reader_id
+       <where>
+           <if test="bookName != null">
+               and b.name like concat('%',#{bookName},'%')
+           </if>
+           <if test="readerName != null">
+               and r.name like concat('%',#{readerName},'%')
+           </if>
+           <if test="readerId != null">
+               and ll.reader_id = #{readerId}
+           </if>
+           <if test="bookId != null">
+               and ll.book_id = #{bookId}
+           </if>
+       </where>
+
+   </select>
+</mapper>

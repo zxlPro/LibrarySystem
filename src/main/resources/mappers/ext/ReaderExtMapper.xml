@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.library.mapper.ext.ReaderInfoExtMapper">
+    <resultMap id="BaseResultMap" type="com.library.vo.ReaderInfoVo" >
+        <id column="reader_id" property="readerId" />
+        <result column="name" property="name"/>
+        <result column="sex" property="sex"/>
+        <result column="birth" property="birth"/>
+        <result column="address" property="address"/>
+        <result column="phone" property="phone"/>
+        <result column="reader_type" property="readerType"/>
+        <result column="reader_type_name" property="readerTypeName"/>
+        <result column="lend_book_num" property="lendBookNum"/>
+        <result column="lend_days" property="lendDays"/>
+        <result column="reservation_days" property="reservation_days"/>
+    </resultMap>
+
+    <!--查询读者信息-->
+   <select id="getLendList" resultMap="BaseResultMap" parameterType="com.library.vo.ReaderInfoVo">
+       select ll.*,b.* from reader_info ll
+       left join reader_type b on ll.reader_type = b.id
+       <where>
+           <if test="readerName != null">
+               and ll.name like concat('%',#{readerName},'%')
+           </if>
+           <if test="readerId != null">
+               and ll.reader_id = #{readerId}
+           </if>
+           <if test="readerType != null">
+               and ll.reader_type = #{readerType}
+           </if>
+       </where>
+
+   </select>
+</mapper>

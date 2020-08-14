@@ -8,6 +8,6 @@
 
     <!--减少图书数量-->
     <update id="delBookNum" parameterType="long">
-         update book_info set number = number - 1 where book_id = #{book_id}
+         update book_info set number = number - 1 where book_id = #{book_id} and number >=1
     </update>
 </mapper>

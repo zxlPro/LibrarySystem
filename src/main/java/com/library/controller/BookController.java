@@ -147,20 +147,7 @@ public class BookController extends BaseController{
 
     @RequestMapping("/reader_books.html")
     public ModelAndView readerBooks(HttpServletRequest request,LendListVo vo) {
-        PageInfo<BookInfo> books = bookService.queryBook(null);
-        ReaderCard readerCard = (ReaderCard) request.getSession().getAttribute("readercard");
-        vo.setReaderId(readerCard.getReaderId());
-        List<LendListVo> myAllLendList = lendService.lendList(vo);
-        List<Long> myLendList = new ArrayList<>();
-        for (LendList lend : myAllLendList) {
-            // 是否已归还
-            if (lend.getBackDate() == null) {
-                myLendList.add(lend.getBookId());
-            }
-        }
         ModelAndView modelAndView = new ModelAndView("reader_books");
-        modelAndView.addObject("books", books);
-        modelAndView.addObject("myLendList", myLendList);
         return modelAndView;
     }
 }

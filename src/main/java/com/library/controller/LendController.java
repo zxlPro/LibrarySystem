@@ -60,9 +60,7 @@ public class LendController {
     public ModelAndView myLend(HttpServletRequest request) {
         ReaderCard readerCard = (ReaderCard) request.getSession().getAttribute("readercard");
         ModelAndView modelAndView = new ModelAndView("reader_lend_list");
-        LendListVo vo = new LendListVo();
-        vo.setReaderId(readerCard.getReaderId());
-        modelAndView.addObject("list", lendService.lendList(vo));
+        modelAndView.addObject("readerId",readerCard.getReaderId());
         return modelAndView;
     }
 

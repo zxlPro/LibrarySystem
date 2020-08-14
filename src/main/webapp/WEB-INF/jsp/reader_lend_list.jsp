@@ -16,6 +16,7 @@
 <body background="img/lizhi.jpg" style=" background-repeat:no-repeat ;
 background-size:100% 100%;
 background-attachment: fixed;">
+<input type="hidden" value="${readerId}" id="readerId">
 <div id="header"></div>
 <div style="position: relative;top: 10%">
     <c:if test="${!empty succ}">
@@ -47,13 +48,15 @@ background-attachment: fixed;">
     <div class="panel-body">
         <table class="table table-hover">
             <thead>
-            <tr>
-                <th>图书号</th>
-                <th>借出日期</th>
-                <th>归还日期</th>
-                <th>状态</th>
-            </tr>
+                <tr>
+                    <th>图书号</th>
+                    <th>图书名称</th>
+                    <th>借出日期</th>
+                    <th>归还日期</th>
+                    <th>状态</th>
+                </tr>
             </thead>
+            <tbody id="list_tbody">
             <tbody>
             <c:forEach items="${list}" var="alog">
                 <tr>
