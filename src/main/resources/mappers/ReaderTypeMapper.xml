@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.library.mapper.ReaderTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.library.pojo.ReaderType" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="reader_type_name" property="readerTypeName" jdbcType="VARCHAR" />
+    <result column="lend_book_num" property="lendBookNum" jdbcType="INTEGER" />
+    <result column="lend_days" property="lendDays" jdbcType="INTEGER" />
+    <result column="reservation_days" property="reservationDays" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, reader_type_name, lend_book_num, lend_days, reservation_days
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.library.pojo.ReaderTypeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from reader_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from reader_type
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from reader_type
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.library.pojo.ReaderTypeExample" >
+    delete from reader_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.library.pojo.ReaderType" >
+    insert into reader_type (id, reader_type_name, lend_book_num, 
+      lend_days, reservation_days)
+    values (#{id,jdbcType=BIGINT}, #{readerTypeName,jdbcType=VARCHAR}, #{lendBookNum,jdbcType=INTEGER}, 
+      #{lendDays,jdbcType=INTEGER}, #{reservationDays,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.library.pojo.ReaderType" >
+    insert into reader_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="readerTypeName != null" >
+        reader_type_name,
+      </if>
+      <if test="lendBookNum != null" >
+        lend_book_num,
+      </if>
+      <if test="lendDays != null" >
+        lend_days,
+      </if>
+      <if test="reservationDays != null" >
+        reservation_days,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="readerTypeName != null" >
+        #{readerTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="lendBookNum != null" >
+        #{lendBookNum,jdbcType=INTEGER},
+      </if>
+      <if test="lendDays != null" >
+        #{lendDays,jdbcType=INTEGER},
+      </if>
+      <if test="reservationDays != null" >
+        #{reservationDays,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.library.pojo.ReaderTypeExample" resultType="java.lang.Integer" >
+    select count(*) from reader_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update reader_type
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.readerTypeName != null" >
+        reader_type_name = #{record.readerTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lendBookNum != null" >
+        lend_book_num = #{record.lendBookNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.lendDays != null" >
+        lend_days = #{record.lendDays,jdbcType=INTEGER},
+      </if>
+      <if test="record.reservationDays != null" >
+        reservation_days = #{record.reservationDays,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update reader_type
+    set id = #{record.id,jdbcType=BIGINT},
+      reader_type_name = #{record.readerTypeName,jdbcType=VARCHAR},
+      lend_book_num = #{record.lendBookNum,jdbcType=INTEGER},
+      lend_days = #{record.lendDays,jdbcType=INTEGER},
+      reservation_days = #{record.reservationDays,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.library.pojo.ReaderType" >
+    update reader_type
+    <set >
+      <if test="readerTypeName != null" >
+        reader_type_name = #{readerTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="lendBookNum != null" >
+        lend_book_num = #{lendBookNum,jdbcType=INTEGER},
+      </if>
+      <if test="lendDays != null" >
+        lend_days = #{lendDays,jdbcType=INTEGER},
+      </if>
+      <if test="reservationDays != null" >
+        reservation_days = #{reservationDays,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.library.pojo.ReaderType" >
+    update reader_type
+    set reader_type_name = #{readerTypeName,jdbcType=VARCHAR},
+      lend_book_num = #{lendBookNum,jdbcType=INTEGER},
+      lend_days = #{lendDays,jdbcType=INTEGER},
+      reservation_days = #{reservationDays,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
