@@ -1,10 +1,8 @@
 package com.library.service;
 
 import com.library.pojo.ReaderType;
+import com.library.vo.ReaderTypeVo;
 import com.library.vo.RespResult;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 public interface ReaderTypeService {
 
@@ -12,7 +10,7 @@ public interface ReaderTypeService {
      * 查询所有读者分类
      * @return
      */
-    public List<ReaderType> getAllReaderTypeList();
+    public RespResult getAllReaderTypeList(ReaderTypeVo vo);
 
 
     /**

@@ -39,10 +39,10 @@ function getList(page){
                     var datai = data[i];
                   html+= '<tr>\
                     <td>'+datai.readerId+'</td>\
+                    <td>'+datai.sno+'</td>\
                     <td>'+datai.name+'</td>\
                     <td>'+datai.sex+'</td>\
                     <td>'+datai.birth+'</td>\
-                        <td>'+datai.address+'</td>\
                     <td>'+datai.phone+'</td>\
                     <td><a href="reader_edit.html?readerId='+datai.readerId+'"><button type="button" class="btn btn-info btn-xs">编辑</button></a></td>\
                     <td><a href="reader_delete.html?readerId='+datai.readerId+'"><button type="button" class="btn btn-danger btn-xs">删除</button></a></td>\

@@ -1,9 +1,12 @@
 package com.library.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.library.mapper.ReaderTypeMapper;
 import com.library.pojo.ReaderType;
 import com.library.pojo.ReaderTypeExample;
 import com.library.service.ReaderTypeService;
+import com.library.vo.ReaderTypeVo;
 import com.library.vo.RespResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,9 +23,14 @@ public class ReaderTypeServiceImpl implements ReaderTypeService {
      * 查询所有读者分类
      * @return
      */
-    public List<ReaderType> getAllReaderTypeList(){
+    public RespResult getAllReaderTypeList(ReaderTypeVo vo){
+        RespResult result = new RespResult();
         ReaderTypeExample example = new ReaderTypeExample();
-      return readerTypeMapper.selectByExample(example);
+        PageHelper.startPage(vo.getPageNo(),vo.getPageSize());
+       List<ReaderType> readerTypeList = readerTypeMapper.selectByExample(example);
+        PageInfo<ReaderType> pageInfo = new PageInfo<>(readerTypeList);
+        result.success(pageInfo);
+        return result;
     }
 
 

@@ -17,4 +17,7 @@ public class ReaderInfoVo extends ReaderInfo {
     private Integer lendDays;
 
     private Integer reservateionDays;
+
+
+    private String sno;
 }

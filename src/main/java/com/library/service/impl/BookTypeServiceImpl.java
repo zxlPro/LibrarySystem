@@ -1,9 +1,14 @@
 package com.library.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.library.mapper.BookTypeMapper;
 import com.library.pojo.BookType;
 import com.library.pojo.BookTypeExample;
+import com.library.pojo.ReaderType;
+import com.library.pojo.ReaderTypeExample;
 import com.library.service.BookTypeService;
+import com.library.vo.BookTypeVo;
 import com.library.vo.RespResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,9 +28,14 @@ public class BookTypeServiceImpl implements BookTypeService {
      * 查询所有图书分类
      * @return
      */
-    public List<BookType> getAllBookTypeList(){
+    public RespResult getAllBookTypeList(BookTypeVo vo){
+        RespResult result = new RespResult();
         BookTypeExample example = new BookTypeExample();
-        return  bookTypeMapper.selectByExample(example);
+        PageHelper.startPage(vo.getPageNo(),vo.getPageSize());
+        List<BookType> bookTypeList = bookTypeMapper.selectByExample(example);
+        PageInfo<BookType> pageInfo = new PageInfo<>(bookTypeList);
+        result.success(pageInfo);
+        return result;
     };
 
     /**

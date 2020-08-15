@@ -5,6 +5,7 @@ import com.library.pojo.ReaderCard;
 import com.library.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -45,16 +46,16 @@ public class LoginController {
     @RequestMapping(value = "/api/loginCheck", method = RequestMethod.POST)
     public @ResponseBody
     Object loginCheck(HttpServletRequest request) {
-        long id = Long.parseLong(request.getParameter("id"));
+        String id = request.getParameter("id");
         String passwd = request.getParameter("passwd");
         boolean isReader = loginService.hasMatchReader(id, passwd);
         boolean isAdmin = loginService.hasMatchAdmin(id, passwd);
         HashMap<String, String> res = new HashMap<>();
         if (isAdmin) {
             Admin admin = new Admin();
-            admin.setAdminId(id);
+            admin.setAdminId(Long.valueOf(id));
             admin.setPassword(passwd);
-            String username = loginService.getAdminUsername(id);
+            String username = loginService.getAdminUsername(Long.valueOf(id));
             admin.setUsername(username);
             request.getSession().setAttribute("admin", admin);
             res.put("stateCode", "1");
@@ -113,7 +114,7 @@ public class LoginController {
     @RequestMapping("/reader_repasswd_do")
     public String reReaderPasswdDo(HttpServletRequest request, String oldPasswd, String newPasswd, String reNewPasswd, RedirectAttributes redirectAttributes) {
         ReaderCard reader = (ReaderCard) request.getSession().getAttribute("readercard");
-        long id = reader.getReaderId();
+        String id = reader.getSno();
         String password = loginService.getReaderPassword(id);
         if (password.equals(oldPasswd)) {
             if (loginService.readerRePassword(id, newPasswd)) {

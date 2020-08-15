@@ -62,7 +62,7 @@
         <!--<table tableName="reservation_info"></table>-->
         <!--<table tableName="library_Info"></table>-->
         <!--<table tableName="black_list"></table>-->
-        <table tableName="reader_type"></table>
+        <!--<table tableName="reader_type"></table>-->
         <!--<table tableName="reservation_info"></table>-->
         <!--<table tableName="book_type"></table>-->
     </context>

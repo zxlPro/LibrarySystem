@@ -56,10 +56,10 @@ background-attachment: fixed;">
             <thead>
             <tr>
                 <th>读者号</th>
+                <th>学号</th>
                 <th>姓名</th>
                 <th>性别</th>
                 <th>生日</th>
-                <th>地址</th>
                 <th>电话</th>
                 <th>编辑</th>
                 <th>删除</th>

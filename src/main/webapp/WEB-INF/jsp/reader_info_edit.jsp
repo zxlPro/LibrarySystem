@@ -42,10 +42,6 @@ background-attachment: fixed;">
                     <input type="text" class="form-control" name="birth" id="birth"  value="<fmt:formatDate value="${readerinfo.birth}" type="date" pattern="yyyy-MM-dd"/>" >
                 </div>
                 <div class="input-group">
-                    <span  class="input-group-addon">地址</span>
-                    <input type="text" class="form-control" name="address" id="address"  value="${readerinfo.address}" >
-                </div>
-                <div class="input-group">
                     <span  class="input-group-addon">电话</span>
                     <input type="text" class="form-control" name="phone" id="phone"  value="${readerinfo.phone}" >
                 </div>

@@ -25,8 +25,12 @@ background-attachment: fixed;">
         <div class="panel-body">
             <form action="reader_add_do.html" method="post" id="readeredit" >
                 <div class="input-group" style="padding-top: 20px;">
+                    <span class="input-group-addon">学号</span>
+                    <input type="text" class="form-control" name="sno" id="sno"  >
+                </div>
+                <div class="input-group" style="padding-top: 20px;">
                     <span  class="input-group-addon">密码</span>
-                    <input  type="password" class="form-control" name="password" id="password" ">
+                    <input  type="password" class="form-control" name="password" id="password">
                 </div>
                 <div class="input-group" style="padding-top: 20px;">
                     <span class="input-group-addon">姓名</span>
@@ -34,15 +38,14 @@ background-attachment: fixed;">
                 </div>
                 <div class="input-group" style="padding-top: 20px;">
                     <span  class="input-group-addon">性别</span>
-                    <input type="text" class="form-control" name="sex" id="sex" >
+                    <select id="sex" name="sex" class="form-control">
+                        <option value="男">男</option>
+                        <option value="女">女</option>
+                    </select>
                 </div>
                 <div class="input-group" style="padding-top: 20px;">
                     <span class="input-group-addon">生日</span>
                     <input type="date" class="form-control" name="birth" id="birth"  >
-                </div>
-                <div class="input-group" style="padding-top: 20px;">
-                    <span  class="input-group-addon">地址</span>
-                    <input type="text" class="form-control" name="address" id="address"  >
                 </div>
                 <div class="input-group" style="padding-top: 20px;">
                     <span class="input-group-addon">电话</span>

@@ -13,21 +13,23 @@
         <result column="lend_book_num" property="lendBookNum"/>
         <result column="lend_days" property="lendDays"/>
         <result column="reservation_days" property="reservation_days"/>
+        <result column="sno" property="sno"/>
     </resultMap>
 
     <!--查询读者信息-->
-   <select id="getLendList" resultMap="BaseResultMap" parameterType="com.library.vo.ReaderInfoVo">
-       select ll.*,b.* from reader_info ll
+   <select id="getReaderList" resultMap="BaseResultMap" parameterType="com.library.vo.ReaderInfoVo">
+       select ll.*,b.*,c.sno from reader_info ll
        left join reader_type b on ll.reader_type = b.id
+       left join reader_card c on ll.reader_id = c.reader_id
        <where>
-           <if test="readerName != null">
-               and ll.name like concat('%',#{readerName},'%')
-           </if>
            <if test="readerId != null">
                and ll.reader_id = #{readerId}
            </if>
            <if test="readerType != null">
                and ll.reader_type = #{readerType}
+           </if>
+           <if test="sno != null">
+               and c.sno = #{sno}
            </if>
        </where>
 

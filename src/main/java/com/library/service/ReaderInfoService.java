@@ -3,6 +3,7 @@ package com.library.service;
 import com.github.pagehelper.PageInfo;
 import com.library.pojo.ReaderInfo;
 import com.library.vo.ReaderInfoVo;
+import com.library.vo.RespResult;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface ReaderInfoService {
      * @param vo
      * @return
      */
-    public PageInfo<ReaderInfo> getReaderList(ReaderInfoVo vo) ;
+    public PageInfo<ReaderInfoVo> getReaderList(ReaderInfoVo vo) ;
 
     public boolean deleteReaderInfo(long readerId);
 
@@ -26,5 +27,5 @@ public interface ReaderInfoService {
 
     public boolean editReaderCard(ReaderInfo readerInfo);
 
-    public long addReaderInfo(ReaderInfo readerInfo);
+    public RespResult addReaderInfo(String sno, String name, String sex, String birth, String phone, String password);
 }

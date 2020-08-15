@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.library.mapper.ext">
+    <resultMap id="BaseResultMap" type="com.library.vo.ReaderCardVo" >
+        <id column="sno" property="sno" />
+        <result column="reader_id" property="readerId"/>
+        <result column="password" property="password"/>
+        <result column="reader_name" property="readerName"/>
+    </resultMap>
+
+    <!--查询读者卡信息-->
+   <select id="getReaderCard" resultMap="BaseResultMap" parameterType="com.library.vo.ReaderCardVo">
+       select ll.*,r.name reader_name  from reader_card ll
+       left join reader_info r on ll.reader_id = r.reader_id
+       <where>
+           <if test="password != null">
+               and ll.password = #{password}
+           </if>
+           <if test="sno != null">
+               and ll.sno = #{sno}
+           </if>
+           <if test="readerId != null">
+               and ll.reader_id = #{readerId}
+           </if>
+       </where>
+
+   </select>
+</mapper>

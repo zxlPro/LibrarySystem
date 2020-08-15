@@ -61,20 +61,6 @@ public class BookController extends BaseController{
         return result;
     }
 
-    @RequestMapping("/reader_querybook_do.html")
-    public ModelAndView readerQueryBookDo(String searchWord) {
-        BookInfoVo vo = new BookInfoVo();
-        vo.setName(searchWord);
-        if (bookService.matchBook(vo)) {
-            PageInfo<BookInfo> books = bookService.queryBook(vo);
-            ModelAndView modelAndView = new ModelAndView("reader_books");
-            modelAndView.addObject("books", books);
-            return modelAndView;
-        } else {
-            return new ModelAndView("reader_books", "error", "没有匹配的图书");
-        }
-    }
-
     @RequestMapping("/admin_books.html")
     public ModelAndView adminBooks() {
         ModelAndView modelAndView = new ModelAndView("admin_books");
