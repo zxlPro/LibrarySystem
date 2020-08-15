@@ -25,8 +25,8 @@ background-attachment: fixed;">
         <div class="panel-body">
             <form action="reader_add_do.html" method="post" id="readeredit" >
                 <div class="input-group" style="padding-top: 20px;">
-                    <span class="input-group-addon">学号</span>
-                    <input type="text" class="form-control" name="sno" id="sno"  >
+                    <span  class="input-group-addon">校内编号</span>
+                    <input  type="text" class="form-control" name="sno" id="sno">
                 </div>
                 <div class="input-group" style="padding-top: 20px;">
                     <span  class="input-group-addon">密码</span>

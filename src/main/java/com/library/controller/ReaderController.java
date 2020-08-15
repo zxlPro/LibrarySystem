@@ -32,7 +32,7 @@ public class ReaderController {
     @Autowired
     private ReaderCardService readerCardService;
 
-    private ReaderInfo getReaderInfo(long readerId, String name, String sex, String birth, String phone) {
+    private ReaderInfo getReaderInfo(long readerId, String name, String sex, String birth, String phone,String sno) {
         ReaderInfo readerInfo = new ReaderInfo();
         Date date = new Date();
         try {
@@ -46,6 +46,7 @@ public class ReaderController {
         readerInfo.setPhone(phone);
         readerInfo.setSex(sex);
         readerInfo.setBirth(date);
+        readerInfo.setSno(sno);
         return readerInfo;
     }
 
@@ -100,9 +101,9 @@ public class ReaderController {
     }
 
     @RequestMapping("reader_edit_do.html")
-    public String readerInfoEditDo(HttpServletRequest request, String name, String sex, String birth, String phone, RedirectAttributes redirectAttributes) {
+    public String readerInfoEditDo(HttpServletRequest request, String name, String sex, String birth, String phone,String sno, RedirectAttributes redirectAttributes) {
         long readerId = Long.parseLong(request.getParameter("readerId"));
-        ReaderInfo readerInfo = getReaderInfo(readerId, name, sex, birth, phone);
+        ReaderInfo readerInfo = getReaderInfo(readerId, name, sex, birth, phone,sno);
         if (readerInfoService.editReaderInfo(readerInfo)) {
             redirectAttributes.addFlashAttribute("succ", "读者信息修改成功！");
         } else {
@@ -137,11 +138,11 @@ public class ReaderController {
     }
 
     @RequestMapping("reader_edit_do_r.html")
-    public String readerInfoEditDoReader(HttpServletRequest request, String name, String sex, String birth, String phone, RedirectAttributes redirectAttributes) {
+    public String readerInfoEditDoReader(HttpServletRequest request, String name, String sex, String birth, String phone,String sno, RedirectAttributes redirectAttributes) {
         ReaderCard readerCard = (ReaderCard) request.getSession().getAttribute("readercard");
-        ReaderInfo readerInfo = getReaderInfo(readerCard.getReaderId(), name, sex, birth, phone);
+        ReaderInfo readerInfo = getReaderInfo(readerCard.getReaderId(), name, sex, birth, phone,sno);
         if (readerInfoService.editReaderInfo(readerInfo)) {
-            ReaderCard readerCardNew = loginService.findReaderCardByReaderId(readerCard.getSno());
+            ReaderCard readerCardNew = loginService.findReaderCardByReaderId(readerCard.getReaderId());
             request.getSession().setAttribute("readercard", readerCardNew);
             redirectAttributes.addFlashAttribute("succ", "信息修改成功！");
         } else {

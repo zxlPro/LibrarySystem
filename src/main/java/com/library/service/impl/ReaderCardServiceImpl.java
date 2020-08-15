@@ -17,20 +17,19 @@ public class ReaderCardServiceImpl implements ReaderCardService {
         String passwdMd5 = DigestUtils.md5DigestAsHex(password.getBytes());
         ReaderCard readerCard = new ReaderCard();
         readerCard.setReaderId(readerId);
-        readerCard.setSno(sno);
         readerCard.setPassword(passwdMd5);
         return  readerCardMapper.insertSelective(readerCard)>0;
     }
-    public boolean updatePassword(String sno, String password){
+    public boolean updatePassword(long readerId, String password){
         String passwdMd5 = DigestUtils.md5DigestAsHex(password.getBytes());
         ReaderCard readerCard = new ReaderCard();
         readerCard.setPassword(passwdMd5);
-        readerCard.setSno(sno);
+        readerCard.setReaderId(readerId);
         return readerCardMapper.updateByPrimaryKeySelective(readerCard)>0;
     }
 
-    public boolean deleteReaderCard(String sno) {
-        return readerCardMapper.deleteByPrimaryKey(sno) > 0;
+    public boolean deleteReaderCard(long readerId) {
+        return readerCardMapper.deleteByPrimaryKey(readerId) > 0;
     }
 
     public boolean deleteReaderCardByReaderId(long readerId) {
@@ -40,7 +39,7 @@ public class ReaderCardServiceImpl implements ReaderCardService {
     }
 
     @Override
-    public ReaderCard getReaderCardBySno(String sno) {
-        return readerCardMapper.selectByPrimaryKey(sno);
+    public ReaderCard getReaderCardBySno(long readerId) {
+        return readerCardMapper.selectByPrimaryKey(readerId);
     }
 }

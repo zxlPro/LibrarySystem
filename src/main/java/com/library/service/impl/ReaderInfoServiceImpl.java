@@ -58,7 +58,17 @@ public class ReaderInfoServiceImpl implements ReaderInfoService {
     }
 
     public boolean editReaderInfo(ReaderInfo readerInfo) {
-        return readerInfoMapper.updateByPrimaryKeySelective(readerInfo) > 0;
+        //修改信息时先查询校内编号除自己外是否有他人注册过
+        ReaderInfoExample example = new ReaderInfoExample();
+        example.createCriteria().andSnoEqualTo(readerInfo.getSno()).andReaderIdNotEqualTo(readerInfo.getReaderId());
+        List<ReaderInfo> readerInfoList = readerInfoMapper.selectByExample(example);
+        //没有其他人注册则可以修改校内编号
+        if(readerInfoList.isEmpty()){
+            return readerInfoMapper.updateByPrimaryKeySelective(readerInfo) > 0;
+        //有其他人使用不允许修改校内编号
+        }else {
+            return false;
+        }
     }
 
     public boolean editReaderCard(ReaderInfo readerInfo) {
@@ -71,13 +81,15 @@ public class ReaderInfoServiceImpl implements ReaderInfoService {
     public RespResult addReaderInfo(String sno,String name, String sex, String birth, String phone, String password) {
         RespResult result = new RespResult();
         //判断学号是否已经存在
-        ReaderCard card = readerCardMapper.selectByPrimaryKey(sno);
+        ReaderInfoExample example = new ReaderInfoExample();
+        example.createCriteria().andSnoEqualTo(sno);
+        List<ReaderInfo> cardList = readerInfoMapper.selectByExample(example);
         //学号不存在则创建读者信息
-        if(card == null){
-            ReaderInfo readerInfo = buildReaderInfo(0, name, sex, birth, phone);
+        if(cardList.isEmpty()){
+            ReaderInfo readerInfo = buildReaderInfo(0, name, sex, birth, phone,sno);
             readerInfoMapper.insertSelective(readerInfo);
             long  readerId = readerInfo.getReaderId();
-            readerCardMapper.insertSelective(buildReaderCard(password,readerId,sno));
+            readerCardMapper.insertSelective(buildReaderCard(password,readerId));
         }else{
             //学号存在则返回读者信息已存在
            result.setResultMsg("读者信息已存在");
@@ -86,16 +98,15 @@ public class ReaderInfoServiceImpl implements ReaderInfoService {
         return result;
     }
 
-    private  ReaderCard buildReaderCard(String password,long readerId,String sno){
+    private  ReaderCard buildReaderCard(String password,long readerId){
         String passwdMd5 = DigestUtils.md5DigestAsHex(password.getBytes());
         ReaderCard readerCard = new ReaderCard();
         readerCard.setReaderId(readerId);
-        readerCard.setSno(sno);
         readerCard.setPassword(passwdMd5);
         return readerCard;
     }
 
-    private ReaderInfo buildReaderInfo(long readerId, String name, String sex, String birth, String phone) {
+    private ReaderInfo buildReaderInfo(long readerId, String name, String sex, String birth, String phone,String sno) {
         ReaderInfo readerInfo = new ReaderInfo();
         Date date = new Date();
         try {
@@ -109,6 +120,7 @@ public class ReaderInfoServiceImpl implements ReaderInfoService {
         readerInfo.setPhone(phone);
         readerInfo.setSex(sex);
         readerInfo.setBirth(date);
+        readerInfo.setSno(sno);
         return readerInfo;
     }
 }

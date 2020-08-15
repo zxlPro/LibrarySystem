@@ -6,9 +6,9 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="sex" property="sex" jdbcType="VARCHAR" />
     <result column="birth" property="birth" jdbcType="DATE" />
-    <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="reader_type" property="readerType" jdbcType="BIGINT" />
+    <result column="sno" property="sno" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -69,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    reader_id, name, sex, birth, address, phone, reader_type
+    reader_id, name, sex, birth, phone, reader_type, sno
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.library.pojo.ReaderInfoExample" >
     select
@@ -103,11 +103,11 @@
   </delete>
   <insert id="insert" parameterType="com.library.pojo.ReaderInfo" >
     insert into reader_info (reader_id, name, sex, 
-      birth, address, phone, 
-      reader_type)
+      birth, phone, reader_type, 
+      sno)
     values (#{readerId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
-      #{birth,jdbcType=DATE}, #{address,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{readerType,jdbcType=BIGINT})
+      #{birth,jdbcType=DATE}, #{phone,jdbcType=VARCHAR}, #{readerType,jdbcType=BIGINT}, 
+      #{sno,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.library.pojo.ReaderInfo" >
     insert into reader_info
@@ -124,14 +124,14 @@
       <if test="birth != null" >
         birth,
       </if>
-      <if test="address != null" >
-        address,
-      </if>
       <if test="phone != null" >
         phone,
       </if>
       <if test="readerType != null" >
         reader_type,
+      </if>
+      <if test="sno != null" >
+        sno,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -147,14 +147,14 @@
       <if test="birth != null" >
         #{birth,jdbcType=DATE},
       </if>
-      <if test="address != null" >
-        #{address,jdbcType=VARCHAR},
-      </if>
       <if test="phone != null" >
         #{phone,jdbcType=VARCHAR},
       </if>
       <if test="readerType != null" >
         #{readerType,jdbcType=BIGINT},
+      </if>
+      <if test="sno != null" >
+        #{sno,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -179,14 +179,14 @@
       <if test="record.birth != null" >
         birth = #{record.birth,jdbcType=DATE},
       </if>
-      <if test="record.address != null" >
-        address = #{record.address,jdbcType=VARCHAR},
-      </if>
       <if test="record.phone != null" >
         phone = #{record.phone,jdbcType=VARCHAR},
       </if>
       <if test="record.readerType != null" >
         reader_type = #{record.readerType,jdbcType=BIGINT},
+      </if>
+      <if test="record.sno != null" >
+        sno = #{record.sno,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -199,9 +199,9 @@
       name = #{record.name,jdbcType=VARCHAR},
       sex = #{record.sex,jdbcType=VARCHAR},
       birth = #{record.birth,jdbcType=DATE},
-      address = #{record.address,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
-      reader_type = #{record.readerType,jdbcType=BIGINT}
+      reader_type = #{record.readerType,jdbcType=BIGINT},
+      sno = #{record.sno,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -218,14 +218,14 @@
       <if test="birth != null" >
         birth = #{birth,jdbcType=DATE},
       </if>
-      <if test="address != null" >
-        address = #{address,jdbcType=VARCHAR},
-      </if>
       <if test="phone != null" >
         phone = #{phone,jdbcType=VARCHAR},
       </if>
       <if test="readerType != null" >
         reader_type = #{readerType,jdbcType=BIGINT},
+      </if>
+      <if test="sno != null" >
+        sno = #{sno,jdbcType=VARCHAR},
       </if>
     </set>
     where reader_id = #{readerId,jdbcType=BIGINT}
@@ -235,9 +235,9 @@
     set name = #{name,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=VARCHAR},
       birth = #{birth,jdbcType=DATE},
-      address = #{address,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
-      reader_type = #{readerType,jdbcType=BIGINT}
+      reader_type = #{readerType,jdbcType=BIGINT},
+      sno = #{sno,jdbcType=VARCHAR}
     where reader_id = #{readerId,jdbcType=BIGINT}
   </update>
 </mapper>

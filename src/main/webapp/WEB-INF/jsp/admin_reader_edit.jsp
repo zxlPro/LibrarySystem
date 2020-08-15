@@ -24,6 +24,10 @@ background-attachment: fixed;">
         <div class="panel-body">
             <form action="reader_edit_do.html?readerId=${readerInfo.readerId}" method="post" id="readeredit" >
                 <div class="input-group">
+                    <span class="input-group-addon">校内编号</span>
+                    <input type="text" class="form-control" name="sno" id="sno" value="${readerInfo.sno}" >
+                </div>
+                <div class="input-group">
                     <span class="input-group-addon">姓名</span>
                     <input type="text" class="form-control" name="name" id="name" value="${readerInfo.name}" >
                 </div>

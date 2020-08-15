@@ -56,8 +56,8 @@
         <!--<table tableName="book_info"></table>-->
         <!--<table tableName="class_info"></table>-->
         <!--<table tableName="lend_list"></table>-->
-        <!--<table tableName="reader_card"></table>-->
-        <!--<table tableName="reader_info"></table>-->
+        <table tableName="reader_card"></table>
+        <table tableName="reader_info"></table>
         <!--<table tableName="reader_type"></table>-->
         <!--<table tableName="reservation_info"></table>-->
         <!--<table tableName="library_Info"></table>-->

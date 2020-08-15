@@ -48,7 +48,7 @@ public class LoginController {
     Object loginCheck(HttpServletRequest request) {
         String id = request.getParameter("id");
         String passwd = request.getParameter("passwd");
-        boolean isReader = loginService.hasMatchReader(id, passwd);
+        boolean isReader = loginService.hasMatchReader(Long.valueOf(id), passwd);
         boolean isAdmin = loginService.hasMatchAdmin(id, passwd);
         HashMap<String, String> res = new HashMap<>();
         if (isAdmin) {
@@ -61,7 +61,7 @@ public class LoginController {
             res.put("stateCode", "1");
             res.put("msg", "管理员登陆成功！");
         } else if (isReader) {
-            ReaderCard readerCard = loginService.findReaderCardByReaderId(id);
+            ReaderCard readerCard = loginService.findReaderCardByReaderId(Long.valueOf(id));
             request.getSession().setAttribute("readercard", readerCard);
             res.put("stateCode", "2");
             res.put("msg", "读者登陆成功！");
@@ -114,10 +114,10 @@ public class LoginController {
     @RequestMapping("/reader_repasswd_do")
     public String reReaderPasswdDo(HttpServletRequest request, String oldPasswd, String newPasswd, String reNewPasswd, RedirectAttributes redirectAttributes) {
         ReaderCard reader = (ReaderCard) request.getSession().getAttribute("readercard");
-        String id = reader.getSno();
-        String password = loginService.getReaderPassword(id);
+        long readerId = reader.getReaderId();
+        String password = loginService.getReaderPassword(readerId);
         if (password.equals(oldPasswd)) {
-            if (loginService.readerRePassword(id, newPasswd)) {
+            if (loginService.readerRePassword(readerId, newPasswd)) {
                 redirectAttributes.addFlashAttribute("succ", "密码修改成功！");
                 return "redirect:/reader_repasswd.html";
             } else {

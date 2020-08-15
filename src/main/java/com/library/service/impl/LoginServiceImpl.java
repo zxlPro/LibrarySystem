@@ -27,10 +27,10 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private ReaderCardExtMapper readerCardExtMapper;
 
-    public boolean hasMatchReader(String sno,String password){
+    public boolean hasMatchReader(long readerId,String password){
         String passwdMd5 = DigestUtils.md5DigestAsHex(password.getBytes());
         ReaderCardExample example = new ReaderCardExample();
-        example.createCriteria().andSnoEqualTo(sno).andPasswordEqualTo(passwdMd5);
+        example.createCriteria().andReaderIdEqualTo(readerId).andPasswordEqualTo(passwdMd5);
         return  readerCardMapper.countByExample(example)>0;
     }
 
@@ -38,10 +38,8 @@ public class LoginServiceImpl implements LoginService {
         return adminMapper.selectByPrimaryKey(adminId).getUsername();
     }
 
-    public ReaderCard findReaderCardByReaderId(String sno){
-        ReaderCardVo vo = new ReaderCardVo();
-        vo.setSno(sno);
-        return readerCardExtMapper.getReaderCard(vo);
+    public ReaderCard findReaderCardByReaderId(long readerId){
+        return readerCardMapper.selectByPrimaryKey(readerId);
     }
 
     public boolean hasMatchAdmin(String adminId,String password){
@@ -62,16 +60,16 @@ public class LoginServiceImpl implements LoginService {
         return adminMapper.selectByPrimaryKey(adminId).getPassword();
     }
 
-    public boolean readerRePassword(String sno, String newPassword) {
+    public boolean readerRePassword(long readerId, String newPassword) {
         String passwdMd5 = DigestUtils.md5DigestAsHex(newPassword.getBytes());
         ReaderCard readerCard = new ReaderCard();
         readerCard.setPassword(passwdMd5);
-        readerCard.setSno(sno);
+        readerCard.setReaderId(readerId);
         return readerCardMapper.updateByPrimaryKeySelective(readerCard) > 0;
     }
 
-    public String getReaderPassword(String sno) {
-        return readerCardMapper.selectByPrimaryKey(sno).getPassword();
+    public String getReaderPassword(long reader) {
+        return readerCardMapper.selectByPrimaryKey(reader).getPassword();
     }
 
     @Override
